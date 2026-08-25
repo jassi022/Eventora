@@ -1,0 +1,153 @@
+.booking-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(9, 7, 16, 0.72);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
+}
+
+.booking-modal {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    background: #1c1830;
+    border: 1px solid #332c52;
+    border-radius: 18px;
+    padding: 36px 28px 28px;
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+    font-family: "Inter", sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.booking-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: #9c94bd;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.booking-close:hover {
+    color: #f5f1e8;
+}
+
+.booking-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #f3b94d;
+}
+
+.booking-title {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: #f5f1e8;
+    margin: 0 0 4px;
+    line-height: 1.15;
+}
+
+.booking-copy {
+    color: #9c94bd;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.booking-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: #9c94bd;
+    font-weight: 500;
+}
+
+.booking-form input {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: #f5f1e8;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid #332c52;
+    border-radius: 10px;
+    padding: 11px 13px;
+    outline: none;
+}
+
+.booking-form input:focus-visible {
+    border-color: #f3b94d;
+    background: rgba(243, 185, 77, 0.06);
+}
+
+.otp-input {
+    letter-spacing: 0.5em;
+    font-family: "JetBrains Mono", monospace;
+    text-align: center;
+    font-size: 18px !important;
+}
+
+.btn-primary {
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    background: #ff6b5e;
+    color: #1c1024;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #f3b94d;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    align-self: center;
+}
+
+.alert {
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    line-height: 1.4;
+}
+
+.alert-error {
+    background: rgba(255, 107, 94, 0.12);
+    border: 1px solid rgba(255, 107, 94, 0.35);
+    color: #ffb3ab;
+}
+
+.alert-notice {
+    background: rgba(243, 185, 77, 0.1);
+    border: 1px solid rgba(243, 185, 77, 0.3);
+    color: #f3b94d;
+}

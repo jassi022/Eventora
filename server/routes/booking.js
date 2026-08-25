@@ -9,6 +9,6 @@ router.post('/', protect, bookEvent); // Create a new booking (accessible to aut
 router.post('/send-OTP', protect, sendBookingOTP); // Send OTP for booking confirmation (accessible to authenticated users)
 router.get('/my', protect, getMyBookings);
 
-router.put('/:id/confirm', protect, admin, confirmBooking); // Confirm a booking (accessible to authenticated users)
-router.delete('/:id', protect, admin, cancelBooking); // Cancel a booking (accessible to authenticated users)
+router.put('/:id/confirm', protect, admin, confirmBooking); // Confirm a booking (admin only)
+router.delete('/:id', protect, cancelBooking); // Cancel a booking (the owning user; ownership checked in the controller)
 module.exports = router;

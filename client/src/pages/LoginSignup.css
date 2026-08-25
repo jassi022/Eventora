@@ -1,0 +1,323 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap");
+
+:root {
+    --bg-deep: #120f1e;
+    --bg-panel: #1c1830;
+    --line: #332c52;
+    --accent-gold: #f3b94d;
+    --accent-coral: #ff6b5e;
+    --text-primary: #f5f1e8;
+    --text-muted: #9c94bd;
+}
+
+.ticket-stage {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 15% 20%, #221c3d 0%, var(--bg-deep) 55%);
+    padding: 24px;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+.ticket {
+    width: 100%;
+    max-width: 880px;
+    display: flex;
+    background: var(--bg-panel);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+    position: relative;
+}
+
+/* ---- Stub (brand) side ---- */
+.ticket-stub {
+    flex: 0 0 38%;
+    padding: 44px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    background: linear-gradient(160deg, #241d42 0%, #171330 100%);
+    position: relative;
+}
+
+.stub-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+}
+
+.stub-title {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.stub-title span {
+    color: var(--accent-coral);
+}
+
+.stub-copy {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 22ch;
+    margin: 0;
+}
+
+.stub-serial {
+    margin-top: 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+}
+
+.stub-serial-code {
+    color: var(--text-primary);
+    transform: rotate(-2deg);
+    display: inline-block;
+}
+
+/* ---- Perforation divider ---- */
+.ticket-perf {
+    flex: 0 0 0;
+    position: relative;
+    width: 0;
+    border-left: 2px dashed rgba(245, 241, 232, 0.18);
+}
+
+.ticket-perf::before,
+.ticket-perf::after {
+    content: "";
+    position: absolute;
+    left: -11px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--bg-deep);
+}
+
+.ticket-perf::before {
+    top: -11px;
+}
+
+.ticket-perf::after {
+    bottom: -11px;
+}
+
+/* ---- Form side ---- */
+.ticket-panel {
+    flex: 1;
+    padding: 44px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mode-toggle {
+    display: flex;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.mode-toggle button {
+    flex: 1;
+    padding: 9px 0;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mode-toggle button.active {
+    background: var(--accent-gold);
+    color: #1c1830;
+}
+
+.alert {
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    line-height: 1.4;
+}
+
+.alert-error {
+    background: rgba(255, 107, 94, 0.12);
+    border: 1px solid rgba(255, 107, 94, 0.35);
+    color: #ffb3ab;
+}
+
+.alert-notice {
+    background: rgba(243, 185, 77, 0.1);
+    border: 1px solid rgba(243, 185, 77, 0.3);
+    color: var(--accent-gold);
+}
+
+.ticket-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ticket-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.ticket-form input {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 13px;
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.ticket-form input::placeholder {
+    color: #6c6590;
+}
+
+.ticket-form input:focus-visible {
+    border-color: var(--accent-gold);
+    background: rgba(243, 185, 77, 0.06);
+}
+
+.otp-input {
+    letter-spacing: 0.5em;
+    font-family: "JetBrains Mono", monospace;
+    text-align: center;
+    font-size: 18px !important;
+}
+
+.btn-primary {
+    margin-top: 4px;
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent-coral);
+    color: #1c1024;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -8px rgba(255, 107, 94, 0.5);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.switch-line {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--accent-gold);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* ---- Responsive: stack the ticket on small screens ---- */
+@media (max-width: 720px) {
+    .ticket {
+        flex-direction: column;
+        max-width: 420px;
+        border-radius: 18px;
+    }
+
+    .ticket-stub {
+        padding: 32px 28px 28px;
+    }
+
+    .stub-title {
+        font-size: 34px;
+    }
+
+    .stub-copy {
+        max-width: none;
+    }
+
+    .ticket-perf {
+        width: auto;
+        height: 0;
+        border-left: none;
+        border-top: 2px dashed rgba(245, 241, 232, 0.18);
+    }
+
+    .ticket-perf::before,
+    .ticket-perf::after {
+        top: -11px;
+        left: auto;
+    }
+
+    .ticket-perf::before {
+        left: -11px;
+    }
+
+    .ticket-perf::after {
+        right: -11px;
+        left: auto;
+    }
+
+    .ticket-panel {
+        padding: 28px 24px 32px;
+    }
+}
+
+@media (max-width: 380px) {
+    .stub-title {
+        font-size: 28px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .btn-primary,
+    .mode-toggle button {
+        transition: none;
+    }
+}

@@ -6,7 +6,7 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
-        user: process.env.EMAIL_PASS
+        pass: process.env.EMAIL_PASS
     }
 });
 
@@ -42,3 +42,6 @@ const sendBookingEmail = async (userEmail, userName, eventTitle) => {
         console.error(`Error sending email to ${userEmail}:`, error);
     }
 };
+
+exports.sendOtpEmail = sendOtpEmail;
+exports.sendBookingEmail = sendBookingEmail;

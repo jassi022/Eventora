@@ -1,0 +1,212 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap");
+
+.bookings-page {
+    min-height: 100vh;
+    width: 100%;
+    background: radial-gradient(circle at 15% 20%, #221c3d 0%, #120f1e 55%);
+    padding: 48px 24px 64px;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+.bookings-header {
+    max-width: 760px;
+    margin: 0 auto 32px;
+}
+
+.bookings-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #f3b94d;
+}
+
+.bookings-title {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 34px;
+    color: #f5f1e8;
+    margin: 6px 0 0;
+}
+
+.bookings-alert {
+    max-width: 760px;
+    margin: 0 auto 20px;
+    background: rgba(255, 107, 94, 0.12);
+    border: 1px solid rgba(255, 107, 94, 0.35);
+    color: #ffb3ab;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 10px;
+}
+
+.bookings-empty {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #9c94bd;
+    font-size: 14px;
+}
+
+.bookings-grid {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.booking-card {
+    position: relative;
+    display: flex;
+    background: #1c1830;
+    border: 1px solid #332c52;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.booking-card-main {
+    flex: 1;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.booking-card-perf {
+    width: 0;
+    border-left: 2px dashed rgba(245, 241, 232, 0.14);
+    position: relative;
+}
+
+.booking-card-perf::before,
+.booking-card-perf::after {
+    content: "";
+    position: absolute;
+    left: -9px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #120f1e;
+}
+
+.booking-card-perf::before {
+    top: -9px;
+}
+
+.booking-card-perf::after {
+    bottom: -9px;
+}
+
+.booking-card-side {
+    flex: 0 0 130px;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.booking-card-code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: #9c94bd;
+}
+
+.status-badge {
+    align-self: flex-start;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.status-badge.status-pending {
+    background: rgba(243, 185, 77, 0.14);
+    color: #f3b94d;
+}
+
+.status-badge.status-confirmed {
+    background: rgba(101, 213, 152, 0.14);
+    color: #65d598;
+}
+
+.status-badge.status-cancelled {
+    background: rgba(255, 107, 94, 0.14);
+    color: #ff8f85;
+}
+
+.booking-card-title {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+    color: #f5f1e8;
+    margin: 2px 0 0;
+}
+
+.booking-card-meta {
+    color: #9c94bd;
+    font-size: 13px;
+    margin: 0;
+}
+
+.booking-card-amount {
+    color: #f5f1e8;
+    font-weight: 600;
+    font-size: 13px;
+    margin: 2px 0 0;
+}
+
+.booking-cancel {
+    background: none;
+    border: 1px solid #ff6b5e;
+    color: #ff6b5e;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.booking-cancel:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.booking-card.status-cancelled {
+    opacity: 0.55;
+}
+
+@media (max-width: 480px) {
+    .booking-card {
+        flex-direction: column;
+    }
+
+    .booking-card-perf {
+        width: auto;
+        height: 0;
+        border-left: none;
+        border-top: 2px dashed rgba(245, 241, 232, 0.14);
+    }
+
+    .booking-card-perf::before {
+        left: -9px;
+        top: -9px;
+    }
+
+    .booking-card-perf::after {
+        right: -9px;
+        left: auto;
+        bottom: -9px;
+        top: -9px;
+    }
+
+    .booking-card-side {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

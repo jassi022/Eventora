@@ -1,5 +1,5 @@
     PORT=5000
-    MONGO_URI=mongodb+srv://JayeshSharmaEvntra:Sharmajayesh@cluster0.id8qj6r.mongodb.net/eventoraDEV?appName=Cluster0
+    MONGO_URI=mongodb+srv://JayeshSharmaEvntra:Jayesh%407697@cluster0.id8qj6r.mongodb.net/eventoraDEV?appName=Cluster0
 
     EMAIL_USER=jayeshsharma106@gmail.com 
     EMAIL_PASS=jdik ufow lybx dllk

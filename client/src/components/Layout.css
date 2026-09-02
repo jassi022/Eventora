@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap");
+
+.app-shell {
+    min-height: 100vh;
+    background: radial-gradient(circle at 15% 20%, #221c3d 0%, #120f1e 55%);
+    font-family: "Inter", sans-serif;
+}
+
+.app-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 32px;
+    border-bottom: 1px solid #332c52;
+    background: rgba(28, 24, 48, 0.6);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.app-nav-brand {
+    font-family: "Anton", sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.01em;
+    color: #f5f1e8;
+}
+
+.app-nav-brand span {
+    color: #ff6b5e;
+}
+
+.app-nav-links {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+}
+
+.app-nav-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: #9c94bd;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.app-nav-link:hover {
+    color: #f5f1e8;
+}
+
+.app-nav-link.active {
+    background: rgba(243, 185, 77, 0.14);
+    color: #f3b94d;
+}
+
+.app-nav-user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.app-nav-name {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: #9c94bd;
+}
+
+.app-nav-logout {
+    background: none;
+    border: 1px solid #332c52;
+    color: #9c94bd;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.app-nav-logout:hover {
+    border-color: #ff6b5e;
+    color: #ff6b5e;
+}
+
+.app-main {
+    min-height: calc(100vh - 65px);
+}
+
+@media (max-width: 640px) {
+    .app-nav {
+        flex-wrap: wrap;
+        padding: 14px 18px;
+    }
+
+    .app-nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+}

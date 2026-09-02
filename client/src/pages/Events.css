@@ -1,0 +1,243 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap");
+
+.events-page {
+    min-height: 100%;
+    padding: 48px 24px 64px;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+.events-header {
+    max-width: 1040px;
+    margin: 0 auto 32px;
+}
+
+.events-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #f3b94d;
+}
+
+.events-title {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 34px;
+    color: #f5f1e8;
+    margin: 6px 0 0;
+}
+
+.events-alert,
+.alert-error {
+    max-width: 1040px;
+    margin: 0 auto 20px;
+    background: rgba(255, 107, 94, 0.12);
+    border: 1px solid rgba(255, 107, 94, 0.35);
+    color: #ffb3ab;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 10px;
+}
+
+.alert-notice {
+    background: rgba(243, 185, 77, 0.1);
+    border: 1px solid rgba(243, 185, 77, 0.3);
+    color: #f3b94d;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+}
+
+.events-empty {
+    max-width: 1040px;
+    margin: 0 auto;
+    color: #9c94bd;
+    font-size: 14px;
+}
+
+.events-grid {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.event-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #1c1830;
+    border: 1px solid #332c52;
+    border-radius: 14px;
+    padding: 20px 22px;
+    gap: 16px;
+}
+
+.event-card-title {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+    color: #f5f1e8;
+    margin: 0;
+}
+
+.event-card-meta {
+    color: #9c94bd;
+    font-size: 13px;
+    margin: 4px 0 0;
+}
+
+.event-card-desc {
+    color: #b6afd0;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 10px 0 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.event-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: #9c94bd;
+}
+
+.event-card-price {
+    color: #f5f1e8;
+    font-weight: 600;
+}
+
+.event-card-btn {
+    background: #ff6b5e;
+    color: #1c1024;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.event-card-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -8px rgba(255, 107, 94, 0.5);
+}
+
+.event-card-btn:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+/* ---- OTP modal ---- */
+.events-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(9, 7, 17, 0.66);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 50;
+}
+
+.events-modal {
+    width: 100%;
+    max-width: 360px;
+    background: #1c1830;
+    border: 1px solid #332c52;
+    border-radius: 18px;
+    padding: 28px 26px;
+}
+
+.events-modal-eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #f3b94d;
+}
+
+.events-modal-title {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: #f5f1e8;
+    margin: 6px 0 16px;
+}
+
+.events-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.events-modal-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: #9c94bd;
+    font-weight: 500;
+}
+
+.events-modal-form input {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: #f5f1e8;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid #332c52;
+    border-radius: 10px;
+    padding: 11px 13px;
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.events-modal-form input:focus-visible {
+    border-color: #f3b94d;
+    background: rgba(243, 185, 77, 0.06);
+}
+
+.otp-input {
+    letter-spacing: 0.5em;
+    font-family: "JetBrains Mono", monospace;
+    text-align: center;
+    font-size: 18px !important;
+}
+
+.events-modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.events-modal-cancel {
+    flex: 1;
+    background: none;
+    border: 1px solid #332c52;
+    color: #9c94bd;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 11px 0;
+    cursor: pointer;
+}
+
+.events-modal-actions .event-card-btn {
+    flex: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .event-card-btn {
+        transition: none;
+    }
+}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api/axios.js";
 import "./LoginSignup.css";
 
@@ -14,6 +15,7 @@ function makeSerial() {
 }
 
 export default function LoginSignup({ onAuthSuccess }) {
+    const navigate = useNavigate();
     const [mode, setMode] = useState("login"); // "login" | "signup" | "otp"
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -37,7 +39,7 @@ export default function LoginSignup({ onAuthSuccess }) {
             JSON.stringify({ id: data._id, name: data.name, email: data.email, role: data.role })
         );
         if (onAuthSuccess) onAuthSuccess(data);
-        else window.location.href = "/dashboard";
+        else navigate("/dashboard");
     };
 
     const submitSignup = async (e) => {

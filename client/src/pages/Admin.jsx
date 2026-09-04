@@ -249,7 +249,7 @@ export default function Admin() {
                             </div>
                             <label>
                                 Image URL
-                                <input value={form.imageUrl} onChange={updateField("imageUrl")} placeholder="https://…" />
+                                <input value={form.imageUrl} onChange={updateField("imageUrl")} placeholder="https://…" required />
                             </label>
 
                             <div className="admin-form-actions">

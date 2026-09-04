@@ -64,6 +64,8 @@ export default function Events() {
             await api.post("/bookings", { eventId: otpTarget._id, otp });
             closeModal();
             await loadEvents();
+            setSuccessMsg("Booking confirmed! Check My Bookings.");
+            setTimeout(() => setSuccessMsg(""), 4000);
         } catch (err) {
             setOtpError(err.response?.data?.message || "That code didn't work. Check it and try again.");
         } finally {

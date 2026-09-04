@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const bookingSchema = new mongoose.Schema({
-    userID: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    eventID: {
+    eventId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event',
         required: true
@@ -17,19 +17,19 @@ const bookingSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['pending', 'confirmed', 'cancelled'],
-        default: 'pending'    
+        default: 'pending'
     },
-    paymentStatus:  {
-        type: String,   
+    paymentStatus: {
+        type: String,
         enum: ['unPaid', 'paid'],
-        default: 'nonPaid'    
+        default: 'unPaid'   // was 'nonPaid' — not a valid enum value, would throw if ever relied on
     },
     amount: {
         type: Number,
         required: true
     }
 },
-{timestamps: true}
-); 
+    { timestamps: true }
+);
 
 module.exports = mongoose.model('Booking', bookingSchema);

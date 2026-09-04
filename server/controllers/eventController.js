@@ -34,24 +34,26 @@ exports.getEventById = async (req, res) => {
 };
 
 exports.createEvent = async (req, res) => {
-    try {
-        const { title, description, date, location, category, totalSeats, availableSeats, ticketPrice, imageUrl } = req.body;
-        const newEvent = new Event({
-            title,
-            description,
-            date,
-            location,
-            category,
-            totalSeats,
-            availableSeats,
-            ticketPrice,
-            imageUrl
-        });
-        await newEvent.save();
-        res.status(201).json(newEvent);
-    } catch (error) {
-        res.status(400).json({ error: 'Error creating event' });
-    }
+    // try {
+    const { title, description, date, location, category, totalSeats, availableSeats, ticketPrice, imageUrl } = req.body;
+    const newEvent = new Event({
+        title,
+        description,
+        date,
+        location,
+        category,
+        totalSeats,
+        availableSeats : totalSeats, // Initialize availableSeats to totalSeats
+        ticketPrice,
+        imageUrl,
+        createdBy: req.user._id,
+
+    });
+    await newEvent.save();
+    res.status(201).json(newEvent);
+    // } catch (error) {
+    //     res.status(400).json({ error: 'Error creating event' });
+    // }
 };
 
 exports.updateEvent = async (req, res) => {

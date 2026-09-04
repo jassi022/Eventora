@@ -11,7 +11,7 @@ exports.registerUser = async (req, res) => {
 
     const { name, email, password } = req.body; // request.body m hum data bhj te h frontend se
 
-    let userExists = await User.findOne({ email });
+    let userExists = await User.findOne({ email: email.toLowerCase() }); //user ka email check kr rhe h ki user exist krta h ya nhi
     if (userExists) {
         return res.status(400).json({ message: 'User already exists' });
     }
@@ -42,7 +42,7 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ email: email.toLowerCase() });
     if (!user) {
         return res.status(400).json({ message: 'Invalid email or password' });
     }

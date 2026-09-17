@@ -8,8 +8,7 @@ export default function Events() {
     const [error, setError] = useState("");
     const [bookingId, setBookingId] = useState(null);
 
-    // OTP modal state
-    const [otpTarget, setOtpTarget] = useState(null); // event object
+    const [otpTarget, setOtpTarget] = useState(null);
     const [otp, setOtp] = useState("");
     const [otpError, setOtpError] = useState("");
     const [otpNotice, setOtpNotice] = useState("");
@@ -110,7 +109,7 @@ export default function Events() {
                                 <div className="event-card-footer">
                                     <span className="event-card-price">₹{event.ticketPrice}</span>
                                     <span className="event-card-seats">
-                                        {soldOut ? "Sold out" : `${event.totalSeats} seats left`}
+                                        {soldOut ? "Sold out" : `${event.availableSeats} seats left`}
                                     </span>
                                 </div>
                             </div>
@@ -146,7 +145,7 @@ export default function Events() {
                                     maxLength={6}
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value)}
-                                    placeholder="123456"
+                                    placeholder="XXXXX"
                                     className="otp-input"
                                     autoFocus
                                 />

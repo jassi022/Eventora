@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const EvntRoutes = require("./routes/events");
 const BkngRoutes = require("./routes/booking.js");
+const passRoutes = require("./routes/passRoutes.js");
 
 dotenv.config();
 
@@ -22,9 +23,10 @@ app.use(express.json());//json ka data yh smjhega ab
 app.use("/api/auth", authRoutes);//isme user login sign up hoga
 app.use("/api/events", EvntRoutes);//isme event dekhega create krega delete krega
 app.use("/api/bookings", BkngRoutes);//idhr booking krega 
+app.use('/api/passes', passRoutes); // Routes for managing passes
 
 mongoose.connect(process.env.MONGO_URI, {
-})
+})  
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB connection error:", err));
 

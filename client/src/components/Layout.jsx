@@ -38,6 +38,15 @@ export default function Layout() {
                         >
                             Admin
                         </NavLink>
+
+                    )}
+                    {user?.role === "admin" && (
+                    <NavLink
+                            to="/pass-master"
+                            className={({ isActive }) => `app-nav-link${isActive ? " active" : ""}`}
+                        >
+                            Pass Master
+                        </NavLink>
                     )}
                 </nav>
 

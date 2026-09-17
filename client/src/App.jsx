@@ -6,6 +6,7 @@ import Admin from "./pages/Admin";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
+import PassMaster from "./pages/PassesMaster";
 import "./App.css";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/dashboard" element={<Events />} />
             <Route path="/my-bookings" element={<MyBookings />} />
+            <Route path="/pass-master" element={<PassMaster />} />
 
             <Route element={<AdminRoute />}>
               <Route path="/admin" element={<Admin />} />

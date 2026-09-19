@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    phone: { type: String, default: null },
     password: {
         type: String,
         required: true
@@ -22,7 +23,10 @@ const userSchema = new mongoose.Schema({
     isVerified: {
         type: Boolean,
         default: false  
-    }
+    },
+    Rights: {
+        CanCncl: { type: Boolean, default: false }, // normal user apni booking cancel kar sake
+    },
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -9,7 +9,7 @@ const generateToken = (id, role) => {
 }
 exports.registerUser = async (req, res) => {
 
-    const { name, email, password } = req.body; // request.body m hum data bhj te h frontend se
+    const { name, email, phone, password } = req.body; // request.body m hum data bhj te h frontend se
 
     let userExists = await User.findOne({ email: email.toLowerCase() }); //user ka email check kr rhe h ki user exist krta h ya nhi
     if (userExists) {
@@ -69,6 +69,7 @@ exports.loginUser = async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone : user.phone,
             role: user.role,
             token: generateToken(user._id, user.role)
         });

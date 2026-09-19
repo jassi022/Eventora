@@ -12,6 +12,7 @@ const authRoutes = require("./routes/auth");
 const EvntRoutes = require("./routes/events");
 const BkngRoutes = require("./routes/booking.js");
 const passRoutes = require("./routes/passRoutes.js");
+const promoRoutes = require("./routes/promoRoutes.js");
 
 dotenv.config();
 
@@ -24,13 +25,21 @@ app.use("/api/auth", authRoutes);//isme user login sign up hoga
 app.use("/api/events", EvntRoutes);//isme event dekhega create krega delete krega
 app.use("/api/bookings", BkngRoutes);//idhr booking krega 
 app.use('/api/passes', passRoutes); // Routes for managing passes
+app.use('/api/promos', promoRoutes); // Routes for managing promo codes
+app.use('/api/rights', require('./routes/rights'));
+app.use('/customers', express.static(require('path').join(__dirname, 'public/customers')));
 
 mongoose.connect(process.env.MONGO_URI, {
-})  
+})
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB connection error:", err));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`);
+// });
+
+//for mobile
+app.listen(5000, "0.0.0.0", () => {
+    console.log("Server running on port 5000");
 });

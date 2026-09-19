@@ -37,6 +37,7 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true  
     },
+    MaxTckt: { type: Number, default: 10, min: 1 },
     createdBy: {    
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

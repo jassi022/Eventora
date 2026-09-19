@@ -25,6 +25,7 @@ export default function LoginSignup({ onAuthSuccess }) {
     const [form, setForm] = useState({
         name: "",
         email: "",
+        phone: "",
         password: "",
         otp: "",
     });
@@ -50,6 +51,7 @@ export default function LoginSignup({ onAuthSuccess }) {
             const res = await api.post("/auth/register", {
                 name: form.name,
                 email: form.email,
+                phone: form.phone,
                 password: form.password,
             });
             setNotice(`We sent a 6-digit code to ${res.data.email}`);
@@ -68,6 +70,7 @@ export default function LoginSignup({ onAuthSuccess }) {
         try {
             const res = await api.post("/auth/login", {
                 email: form.email,
+                phone: form.phone,
                 password: form.password,
             });
             handleAuthed(res.data);
@@ -215,6 +218,17 @@ export default function LoginSignup({ onAuthSuccess }) {
                                     onChange={update("email")}
                                     placeholder="you@example.com"
                                     autoComplete="email"
+                                />
+                            </label>
+                            <label>
+                                Phone No.
+                                <input
+                                    type="phone"
+                                    required
+                                    value={form.phone}
+                                    onChange={update("phone")}
+                                    placeholder="86XXXXXX56"
+                                    autoComplete="phone"
                                 />
                             </label>
                             <label>

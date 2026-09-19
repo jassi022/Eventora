@@ -10,6 +10,7 @@ const EMPTY_FORM = {
     category: "",
     totalSeats: "",
     availableSeats: "",
+    MaxTckt: "",
     ticketPrice: "",
     imageUrl: "",
 };
@@ -61,6 +62,7 @@ export default function Admin() {
             totalSeats: event.totalSeats ?? "",
             availableSeats: event.availableSeats ?? "",
             ticketPrice: event.ticketPrice ?? "",
+            MaxTckt: event.MaxTckt ?? 1,
             imageUrl: event.imageUrl || "",
         });
         setFormError("");
@@ -85,6 +87,7 @@ export default function Admin() {
                 totalSeats: Number(form.totalSeats),
                 availableSeats: Number(form.availableSeats || form.totalSeats),
                 ticketPrice: Number(form.ticketPrice),
+                MaxTckt: Number(form.MaxTckt) || 1,
             };
             if (editingId) {
                 await api.put(`/events/${editingId}`, payload);
@@ -245,6 +248,10 @@ export default function Admin() {
                                         value={form.availableSeats}
                                         onChange={updateField("availableSeats")}
                                     />
+                                </label>
+                                <label>
+                                    Max tickets per booking
+                                    <input type="number" min="1" required value={form.MaxTckt} onChange={updateField("MaxTckt")} />
                                 </label>
                             </div>
                             <label>

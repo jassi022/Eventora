@@ -151,3 +151,454 @@
     border: 1px solid rgba(243, 185, 77, 0.3);
     color: #f3b94d;
 }
+
+.promo-saved {
+    background: rgba(101, 213, 152, 0.12);
+    color: #4fbf82;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 4px 0;
+}
+
+.promo-saved-pop {
+    animation: promoPop 0.4s ease;
+}
+
+@keyframes promoPop {
+    0% {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.booking-promo-row {
+    display: flex;
+    gap: 8px;
+}
+
+.booking-promo-input {
+    flex: 1;
+}
+
+.booking-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin: 8px 0;
+}
+
+.booking-total-strike {
+    text-decoration: line-through;
+    opacity: 0.5;
+    margin-right: 6px;
+    font-weight: 400;
+}
+
+.pass-picker {
+    margin-bottom: 18px;
+}
+
+.pass-picker-label {
+    display: block;
+    font-size: 13px;
+    color: #9c94bd;
+    margin-bottom: 10px;
+}
+
+.pass-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.pass-card {
+    position: relative;
+    background: #14101f;
+    border: 1px solid #332c52;
+    border-radius: 14px;
+    padding: 14px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pass-card:hover {
+    border-color: #4a4272;
+    transform: translateY(-1px);
+}
+
+.pass-card-active {
+    border-color: #f3b94d;
+    background: rgba(243, 185, 77, 0.07);
+    box-shadow: 0 0 0 1px rgba(243, 185, 77, 0.25), 0 8px 20px rgba(243, 185, 77, 0.08);
+}
+
+.pass-card-check {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #f3b94d;
+    color: #1a1120;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: checkPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes checkPop {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.pass-card-top {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-right: 20px;
+}
+
+.pass-line-name {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #f5f1e8;
+}
+
+.pass-line-price {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: #f3b94d;
+    font-weight: 600;
+}
+
+.pass-line-max {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    color: #6b6390;
+    letter-spacing: 0.02em;
+}
+
+.pass-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 4px;
+    padding-top: 10px;
+    border-top: 1px solid #2a2444;
+}
+
+.pass-stepper-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid #332c52;
+    background: rgba(255, 255, 255, 0.04);
+    color: #f5f1e8;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    line-height: 1;
+}
+
+.pass-stepper-btn:hover:not(:disabled) {
+    border-color: #f3b94d;
+    color: #f3b94d;
+    background: rgba(243, 185, 77, 0.1);
+}
+
+.pass-stepper-btn:active:not(:disabled) {
+    transform: scale(0.9);
+}
+
+.pass-stepper-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.pass-stepper-qty {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: #f5f1e8;
+    min-width: 18px;
+    text-align: center;
+}
+
+.pass-stepper-pop {
+    animation: qtyPop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes qtyPop {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .pass-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.admin-book-contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.booking-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 58px;
+    padding: 9px 12px 7px 38px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid #30294c;
+    border-radius: 12px;
+    color: #77708f;
+    font-family: "Inter", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Icon circle */
+.booking-field::before {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(243, 185, 77, 0.1);
+    border: 1px solid rgba(243, 185, 77, 0.2);
+    color: #f3b94d;
+    font-size: 10px;
+}
+
+/* Email icon */
+.booking-field:first-child::before {
+    content: "✉";
+}
+
+/* Phone icon */
+.booking-field:last-child::before {
+    content: "⌕";
+    font-size: 14px;
+}
+
+/* Input */
+.booking-field input {
+    width: 100%;
+    padding: 3px 0 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #f5f1e8;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.booking-field input::placeholder {
+    color: #57506e;
+    font-weight: 400;
+}
+
+/* Hover */
+.booking-field:hover {
+    border-color: #41385f;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* Focus */
+.booking-field:focus-within {
+    border-color: rgba(243, 185, 77, 0.6);
+    background: rgba(243, 185, 77, 0.035);
+    box-shadow: 0 0 0 3px rgba(243, 185, 77, 0.055), 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.booking-field:focus-within::before {
+    background: rgba(243, 185, 77, 0.18);
+    border-color: rgba(243, 185, 77, 0.4);
+}
+
+/* ================================
+   MODERN PROMO CODE SECTION
+   ================================ */
+
+.booking-promo-row {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    padding: 5px;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid #332c52;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.booking-promo-row:focus-within {
+    border-color: rgba(243, 185, 77, 0.55);
+    background: rgba(243, 185, 77, 0.025);
+    box-shadow: 0 0 0 3px rgba(243, 185, 77, 0.06);
+}
+
+.booking-promo-input {
+    flex: 1;
+    min-width: 0;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #f5f1e8;
+    padding: 9px 10px !important;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+}
+
+.booking-promo-input::placeholder {
+    color: #71698d;
+    font-family: "Inter", sans-serif;
+    letter-spacing: 0;
+}
+
+
+/* Apply button */
+
+.booking-promo-row .btn-ghost {
+    flex-shrink: 0;
+    min-width: 70px;
+    border: 1px solid rgba(243, 185, 77, 0.25);
+    border-radius: 9px;
+    padding: 0 14px;
+    background: rgba(243, 185, 77, 0.08);
+    color: #f3b94d;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+.booking-promo-row .btn-ghost:hover:not(:disabled) {
+    background: rgba(243, 185, 77, 0.16);
+    border-color: rgba(243, 185, 77, 0.55);
+    box-shadow: 0 4px 14px rgba(243, 185, 77, 0.08);
+}
+
+.booking-promo-row .btn-ghost:active:not(:disabled) {
+    transform: scale(0.96);
+}
+
+.booking-promo-row .btn-ghost:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+
+/* ================================
+   PROMO SUCCESS MESSAGE
+   ================================ */
+
+.promo-saved {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg,
+            rgba(79, 191, 130, 0.13),
+            rgba(79, 191, 130, 0.05));
+    border: 1px solid rgba(79, 191, 130, 0.2);
+    color: #63d395;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 9px 12px;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.promo-saved-pop {
+    animation: promoPop 0.4s ease;
+}
+
+
+/* ================================
+   MOBILE
+   ================================ */
+
+@media (max-width: 480px) {
+    .admin-book-contact {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-field {
+        min-height: 55px;
+    }
+
+    .booking-promo-row {
+        padding: 4px;
+    }
+
+    .booking-promo-row .btn-ghost {
+        min-width: 65px;
+        padding: 0 12px;
+    }
+}

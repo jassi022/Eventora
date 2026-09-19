@@ -48,6 +48,30 @@ export default function Layout() {
                             Pass Master
                         </NavLink>
                     )}
+                    {user?.role === "admin" && (
+                    <NavLink
+                            to="/my-promocode"
+                            className={({ isActive }) => `app-nav-link${isActive ? " active" : ""}`}
+                        >
+                            PromoCode
+                        </NavLink>
+                    )}
+                    {user?.role === "admin" && (
+                    <NavLink
+                            to="/rights-master"
+                            className={({ isActive }) => `app-nav-link${isActive ? " active" : ""}`}
+                        >
+                            Rights Master
+                        </NavLink>
+                    )}
+                    {user?.role === "admin" && (
+                    <NavLink
+                            to="/scan-master"
+                            className={({ isActive }) => `app-nav-link${isActive ? " active" : ""}`}
+                        >
+                            Scan Master
+                        </NavLink>
+                    )}
                 </nav>
 
                 <div className="app-nav-user">

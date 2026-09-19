@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import BookEventModal from "../components/BookEventModal";
 import "./Events.css";
 
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [bookingId, setBookingId] = useState(null);
-
-    const [otpTarget, setOtpTarget] = useState(null);
-    const [otp, setOtp] = useState("");
-    const [otpError, setOtpError] = useState("");
-    const [otpNotice, setOtpNotice] = useState("");
-    const [otpLoading, setOtpLoading] = useState(false);
-
+    const [bookingEvent, setBookingEvent] = useState(null);
+    const [successMsg, setSuccessMsg] = useState("");
+    const user = JSON.parse(localStorage.getItem("user"));
     const loadEvents = async () => {
         setLoading(true);
         setError("");
@@ -31,45 +27,11 @@ export default function Events() {
         loadEvents();
     }, []);
 
-    const openBooking = async (event) => {
-        setBookingId(event._id);
-        setError("");
-        try {
-            await api.post("/bookings/send-OTP", { eventId: event._id });
-            setOtpTarget(event);
-            setOtp("");
-            setOtpError("");
-            setOtpNotice(`We sent a 6-digit code to your email to confirm ${event.title}`);
-        } catch (err) {
-            setError(err.response?.data?.message || "Couldn't send OTP. Try again.");
-        } finally {
-            setBookingId(null);
-        }
-    };
-
-    const closeModal = () => {
-        setOtpTarget(null);
-        setOtp("");
-        setOtpError("");
-        setOtpNotice("");
-    };
-
-    const confirmBooking = async (e) => {
-        e.preventDefault();
-        if (!otpTarget) return;
-        setOtpLoading(true);
-        setOtpError("");
-        try {
-            await api.post("/bookings", { eventId: otpTarget._id, otp });
-            closeModal();
-            await loadEvents();
-            setSuccessMsg("Booking confirmed! Check My Bookings.");
-            setTimeout(() => setSuccessMsg(""), 4000);
-        } catch (err) {
-            setOtpError(err.response?.data?.message || "That code didn't work. Check it and try again.");
-        } finally {
-            setOtpLoading(false);
-        }
+    const handleBooked = () => {
+        setBookingEvent(null);
+        loadEvents();
+        setSuccessMsg("Booking confirmed! Check My Bookings.");
+        setTimeout(() => setSuccessMsg(""), 4000);
     };
 
     return (
@@ -80,6 +42,11 @@ export default function Events() {
             </div>
 
             {error && <div className="events-alert">{error}</div>}
+            {successMsg && (
+                <div className="events-alert" style={{ background: "rgba(101,213,152,0.12)", color: "#65d598" }}>
+                    {successMsg}
+                </div>
+            )}
 
             {loading && <p className="events-empty">Loading events…</p>}
 
@@ -89,7 +56,7 @@ export default function Events() {
 
             <div className="events-grid">
                 {events.map((event) => {
-                    const soldOut = event.totalSeats <= 0;
+                    const soldOut = event.availableSeats <= 0;
                     return (
                         <div className="event-card" key={event._id}>
                             <div className="event-card-body">
@@ -115,52 +82,25 @@ export default function Events() {
                             </div>
                             <button
                                 className="event-card-btn"
-                                disabled={soldOut || bookingId === event._id}
-                                onClick={() => openBooking(event)}
+                                disabled={soldOut}
+                                onClick={() => setBookingEvent(event)}
                             >
-                                {soldOut ? "Sold out" : bookingId === event._id ? "Sending code…" : "Book now"}
+                                {soldOut ? "Sold out" : "Book now"}
                             </button>
                         </div>
                     );
                 })}
             </div>
 
-            {otpTarget && (
-                <div className="events-modal-backdrop" onClick={closeModal}>
-                    <div className="events-modal" onClick={(e) => e.stopPropagation()}>
-                        <span className="events-modal-eyebrow">Confirm booking</span>
-                        <h3 className="events-modal-title">{otpTarget.title}</h3>
-
-                        {otpNotice && !otpError && <div className="alert-notice">{otpNotice}</div>}
-                        {otpError && <div className="alert-error">{otpError}</div>}
-
-                        <form onSubmit={confirmBooking} className="events-modal-form">
-                            <label>
-                                6-digit code
-                                <input
-                                    type="text"
-                                    required
-                                    inputMode="numeric"
-                                    pattern="[0-9]{6}"
-                                    maxLength={6}
-                                    value={otp}
-                                    onChange={(e) => setOtp(e.target.value)}
-                                    placeholder="XXXXX"
-                                    className="otp-input"
-                                    autoFocus
-                                />
-                            </label>
-                            <div className="events-modal-actions">
-                                <button type="button" className="events-modal-cancel" onClick={closeModal}>
-                                    Cancel
-                                </button>
-                                <button type="submit" className="event-card-btn" disabled={otpLoading}>
-                                    {otpLoading ? "Confirming…" : "Confirm booking"}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            {bookingEvent && (
+                <BookEventModal
+                    eventId={bookingEvent._id}
+                    eventTitle={bookingEvent.title}
+                    isAdmin={user.role === "admin"}
+                    ticketPrice={bookingEvent.ticketPrice}
+                    onClose={() => setBookingEvent(null)}   
+                    onBooked={handleBooked}
+                />
             )}
         </div>
     );

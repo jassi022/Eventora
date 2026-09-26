@@ -5,6 +5,7 @@
 module.exports = [
     { model: 'User', field: 'Rights.CanCncl', action: 'add', value: false },
     { model: 'User', field: 'phone', action: 'add', value: 0 },
+    { model: 'User', field: 'UsrTyp', action: 'add', value: 0 },
     
     // { model: 'Event', field: 'OldUnusedField', action: 'remove' },
 

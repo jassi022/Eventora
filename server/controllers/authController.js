@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const generateToken = (id, role) => {
     return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: '3d' }); // ab 3 din usko login nhi krna pdega
 }
+
 exports.registerUser = async (req, res) => {
 
     const { name, email, phone, password } = req.body; // request.body m hum data bhj te h frontend se
@@ -19,7 +20,19 @@ exports.registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     try {
-        const user = await User.create({ name, email, password: hashedPassword, role: 'user', isVerified: false });
+        // Normal customer signup — UsrTyp auto-assign, 1000 se shuru, +5 har baar
+        const lastCustomer = await User.findOne({ UsrTyp: { $gte: 1000 } }).sort({ UsrTyp: -1 });
+        const nextUsrTyp = lastCustomer ? lastCustomer.UsrTyp + 5 : 1000;
+
+        const user = await User.create({
+            name,
+            email,
+            phone,
+            password: hashedPassword,
+            role: 'user',
+            isVerified: false,
+            UsrTyp: nextUsrTyp,
+        });
         await user.save();
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -69,8 +82,10 @@ exports.loginUser = async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            phone : user.phone,
+            phone: user.phone,
             role: user.role,
+            UsrTyp: user.UsrTyp,       // ⬅️ zaroori — superadmin/staff/customer decide karne ke liye
+            Rights: user.Rights,       // ⬅️ purana CanCncl system iske bina kaam nahi karega
             token: generateToken(user._id, user.role)
         });
 };
@@ -82,7 +97,7 @@ exports.verifyOtp = async (req, res) => {
         return res.status(400).json({ message: 'Invalid or expired OTP' });
     }
 
-    const user = await User.findOneAndUpdate({ email }, { isVerified: true });
+    const user = await User.findOneAndUpdate({ email }, { isVerified: true }, { new: true }); // ⬅️ { new: true } add kiya taaki updated document mile
     await OTP.deleteMany({ email, action: 'account_verification' }); // Delete the OTP after successful verification
     res.status(200).json(
         {
@@ -90,7 +105,10 @@ exports.verifyOtp = async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone,          // ⬅️ add kiya, pehle missing tha
             role: user.role,
+            UsrTyp: user.UsrTyp,        // ⬅️ zaroori
+            Rights: user.Rights,        // ⬅️ zaroori
             token: generateToken(user._id, user.role)
         });
 };

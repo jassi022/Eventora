@@ -162,3 +162,8 @@ exports.saveInvoiceToDisk = (pdfBuffer, identifier) => {
     fs.writeFileSync(filepath, pdfBuffer);
     return { filename, filepath };
 };
+
+exports.generateUPIQR = async (amount, bookingRef, payeeVPA, payeeName) => {
+    const upiUrl = `upi://pay?pa=${encodeURIComponent(payeeVPA)}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR&tn=${encodeURIComponent('Booking ' + bookingRef)}`;
+    return await QRCode.toBuffer(upiUrl); // same qrcode lib you already use in generateQR
+};

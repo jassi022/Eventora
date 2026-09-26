@@ -10,6 +10,7 @@ export default function Events() {
     const [bookingEvent, setBookingEvent] = useState(null);
     const [successMsg, setSuccessMsg] = useState("");
     const user = JSON.parse(localStorage.getItem("user"));
+
     const loadEvents = async () => {
         setLoading(true);
         setError("");
@@ -30,7 +31,7 @@ export default function Events() {
     const handleBooked = () => {
         setBookingEvent(null);
         loadEvents();
-        setSuccessMsg("Booking confirmed! Check My Bookings.");
+        setSuccessMsg("Booking is still pending it will be confirmed once verified  ! Check My Bookings.");
         setTimeout(() => setSuccessMsg(""), 4000);
     };
 
@@ -39,6 +40,11 @@ export default function Events() {
             <div className="events-header">
                 <span className="events-eyebrow">Now Boarding</span>
                 <h1 className="events-title">Find your next event</h1>
+                {!loading && events.length > 0 && (
+                    <p className="events-subtitle">
+                        {events.length} event{events.length !== 1 ? "s" : ""} up for grabs — grab your pass before seats run out.
+                    </p>
+                )}
             </div>
 
             {error && <div className="events-alert">{error}</div>}
@@ -59,6 +65,19 @@ export default function Events() {
                     const soldOut = event.availableSeats <= 0;
                     return (
                         <div className="event-card" key={event._id}>
+                            <div className="event-card-media">
+                                {event.imageUrl ? (
+                                    <img
+                                        src={event.imageUrl}
+                                        alt={event.title}
+                                        className="event-card-img"
+                                        loading="lazy"
+                                    />
+                                ) : (
+                                    <div className="event-card-img-placeholder">🎟️</div>
+                                )}
+                            </div>
+
                             <div className="event-card-body">
                                 <h3 className="event-card-title">{event.title}</h3>
                                 {event.date && (
@@ -80,6 +99,7 @@ export default function Events() {
                                     </span>
                                 </div>
                             </div>
+
                             <button
                                 className="event-card-btn"
                                 disabled={soldOut}
@@ -98,7 +118,7 @@ export default function Events() {
                     eventTitle={bookingEvent.title}
                     isAdmin={user.role === "admin"}
                     ticketPrice={bookingEvent.ticketPrice}
-                    onClose={() => setBookingEvent(null)}   
+                    onClose={() => setBookingEvent(null)}
                     onBooked={handleBooked}
                 />
             )}

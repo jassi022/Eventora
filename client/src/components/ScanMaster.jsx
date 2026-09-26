@@ -83,13 +83,13 @@ export default function ScanMaster() {
                 setScanning(false);
                 fetchTicket(decodedText);
             },
-            () => {}
+            () => { }
         )
             .then(() => {
                 if (isMounted) setScanning(true);
             })
             .catch((err) => {
-                setCameraError("Camera access nahi mil payi. Manual entry use karo, ya browser permissions check karo.");
+                setCameraError("Camera is not accessible. Please check permissions or try a different authentication method.");
                 console.error(err);
             });
 
@@ -192,12 +192,12 @@ export default function ScanMaster() {
                     <button className="scan-choice-card" onClick={() => setMode("camera")}>
                         <span className="scan-choice-icon">📷</span>
                         <span className="scan-choice-title">Scan by QR</span>
-                        <span className="scan-choice-sub">Camera se QR code scan karo</span>
+                        <span className="scan-choice-sub">Scan QR Code with camera</span>
                     </button>
                     <button className="scan-choice-card" onClick={() => setMode("manual")}>
                         <span className="scan-choice-icon">⌨️</span>
                         <span className="scan-choice-title">By Ticket No.</span>
-                        <span className="scan-choice-sub">Ticket number type karke dhoondo</span>
+                        <span className="scan-choice-sub">Find Ticket By Ticket Number</span>
                     </button>
                 </div>
             )}

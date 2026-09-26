@@ -39,13 +39,26 @@ export default function MyBookings() {
         loadBookings();
     }, [isAdmin]);
 
-    const cancel = async (id) => {
-        setActingId(id);
+    const cancel = async (b) => {
+        const wasConfirmed = b.status === "confirmed";
+
+        if (
+            wasConfirmed &&
+            !window.confirm(
+                "This booking is already confirmed. Cancelling it now will email the buyer that their ticket is no longer valid. Continue?"
+            )
+        ) {
+            return;
+        }
+
+        setActingId(b._id);
         setError("");
         try {
-            await api.delete(`/bookings/${id}`);
+            const res = await api.delete(`/bookings/${b._id}`);
             setBookings((prev) =>
-                prev.map((b) => (b._id === id ? { ...b, status: "cancelled" } : b))
+                prev.map((x) =>
+                    x._id === b._id ? { ...x, ...res.data.booking, status: "cancelled" } : x
+                )
             );
         } catch (err) {
             setError(err.response?.data?.message || "Couldn't cancel this booking.");
@@ -54,13 +67,28 @@ export default function MyBookings() {
         }
     };
 
-    const approve = async (id) => {
-        setActingId(id);
+    // Approval goes through payment verification — a booking can only
+    // be approved once it actually has a UTR waiting (b.pendingPayment),
+    // and it always hits verifyUTR by paymentId, never a direct status
+    // flip. NOTE: this route is mounted at /api/payments (plural) in
+    // index.js — was "/payment/utr/..." (singular), fixed to match.
+    const approve = async (b) => {
+        if (!b.pendingPayment) return;
+
+        if (
+            !window.confirm(
+                `Are you sure you want to confirm this booking? (UTR: ${b.pendingPayment.utr})`
+            )
+        ) {
+            return;
+        }
+
+        setActingId(b._id);
         setError("");
         try {
-            await api.put(`/bookings/${id}/confirm`, { status: "confirmed" });
+            const res = await api.put(`/payments/utr/${b.pendingPayment.paymentId}/verify`);
             setBookings((prev) =>
-                prev.map((b) => (b._id === id ? { ...b, status: "confirmed" } : b))
+                prev.map((x) => (x._id === b._id ? { ...x, ...res.data.booking, pendingPayment: null } : x))
             );
         } catch (err) {
             setError(err.response?.data?.message || "Couldn't approve this booking.");
@@ -93,12 +121,18 @@ export default function MyBookings() {
         link.click();
     };
 
+    // Ticket is viewable once payment is verified (paymentStatus 503)
+    // OR the ticket has been generated and is still active/unscanned
+    // (TktStat 410 + TktActive true). Numbers left exactly as-is.
+    const isTicketViewable = (b) =>
+        b.paymentStatus === 503 || (b.TktStat === 410 && b.TktActive === true);
+
     // admin stats
     const totalBookings = bookings.length;
-    const confirmedCount = bookings.filter((b) => b.status === "confirmed").length;
-    const pendingCount = bookings.filter((b) => b.status === "pending").length;
+    const confirmedCount = bookings.filter((b) => b.paymentStatus == 503).length;
+    const pendingCount = bookings.filter((b) => b.paymentStatus === 501).length;
     const totalRevenue = bookings
-        .filter((b) => b.status === "confirmed")
+        .filter((b) => b.paymentStatus == 503)
         .reduce((sum, b) => sum + (b.amount || 0), 0);
 
     return (
@@ -177,7 +211,7 @@ export default function MyBookings() {
                                             <span className="admin-row-tag">via admin</span>
                                         )}
                                     </td>
-                                    <td>{b.user?.email || b.GstEmail || "—"}</td>
+                                    <td>{b.nBookedBy == 500 ? b.GstEmail : b.user?.email || "—"}</td>
                                     <td>{b.user?.phone || b.GstPh || "—"}</td>
                                     <td>{b.tickets ?? 1}</td>
                                     <td className="admin-row-amount">
@@ -188,16 +222,25 @@ export default function MyBookings() {
                                     </td>
                                     <td>
                                         <span className={`status-badge status-${b.status}`}>
-                                            {STATUS_LABEL[b.status] || b.status}
+                                            {{
+                                                503: "Confirmed",
+                                                400: "Cancelled by Admin",
+                                            }[b.status] || STATUS_LABEL[b.status] || b.status}
                                         </span>
+                                        {b.pendingPayment && (
+                                            <span className="status-badge status-pending" style={{ marginLeft: 6 }}>
+                                                UTR submitted
+                                            </span>
+                                        )}
                                     </td>
                                     <td>
                                         <div className="admin-row-actions">
-                                            {b.status !== "confirmed" && (
+                                            {b.pendingPayment && (
                                                 <button
                                                     className="booking-approve"
-                                                    onClick={() => approve(b._id)}
+                                                    onClick={() => approve(b)}
                                                     disabled={actingId === b._id}
+                                                    title={`UTR: ${b.pendingPayment.utr}`}
                                                 >
                                                     {actingId === b._id ? "…" : "Approve"}
                                                 </button>
@@ -205,7 +248,7 @@ export default function MyBookings() {
                                             {b.status !== "cancelled" && (
                                                 <button
                                                     className="booking-cancel"
-                                                    onClick={() => cancel(b._id)}
+                                                    onClick={() => cancel(b)}
                                                     disabled={actingId === b._id}
                                                 >
                                                     {actingId === b._id ? "…" : "Cancel"}
@@ -250,7 +293,7 @@ export default function MyBookings() {
                                 <span className="booking-card-code">
                                     {b.TktCod ? b.TktCod.split("-").pop() : b._id.slice(-6).toUpperCase()}
                                 </span>
-                                {b.status === "confirmed" && (
+                                {isTicketViewable(b) && (
                                     <button className="view-ticket-btn" onClick={() => openQr(b._id)}>
                                         🎫 View Ticket
                                     </button>
@@ -258,7 +301,7 @@ export default function MyBookings() {
                                 {b.status !== "cancelled" && currentUser?.Rights?.CanCncl && (
                                     <button
                                         className="booking-cancel"
-                                        onClick={() => cancel(b._id)}
+                                        onClick={() => cancel(b)}
                                         disabled={actingId === b._id}
                                     >
                                         {actingId === b._id ? "…" : "Cancel"}

@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
     Rights: {
         CanCncl: { type: Boolean, default: false }, // normal user apni booking cancel kar sake
     },
+    UsrTyp: { type: Number, default: 1000 },
 });
 
 module.exports = mongoose.model('User', userSchema);

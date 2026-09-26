@@ -1,0 +1,35 @@
+const PAGES = {
+    EVENTS_MASTER: 5005,
+    PASS_MASTER: 5010,
+    PROMO_MASTER: 5015,
+    RIGHTS_MASTER: 5020,
+    SCAN_MASTER: 5025,
+    USER_MASTER: 5030,
+    BOOKINGS_MASTER: 5035,
+};
+const PAYMENT_GATEWAY = Object.freeze({
+    UTR_BASED: 10,
+    RAZORPAY: 20,
+});
+
+const PAYMENT_STATUS = Object.freeze({
+    PENDING: 510,
+    UTR_SUBMITTED: 504,
+    VERIFIED: 503,
+    REJECTED: 400,
+});
+
+const BOOKING_STATUS = Object.freeze({
+    PAYMENT_PENDING: 501,
+    CONFIRMED: 503,
+    CANCELLED: 500,
+    REJECTED: 400,
+});
+
+const UTR_STATUS = Object.freeze({
+    PENDING: 510,
+    SUBMITTED: 504,
+    VERIFIED: 503,
+    REJECTED: 502,
+});
+module.exports = { PAGES, PAYMENT_GATEWAY, PAYMENT_STATUS, BOOKING_STATUS, UTR_STATUS };

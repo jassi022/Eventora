@@ -37,7 +37,6 @@ exports.updatePromo = async (req, res) => {
         if (MinAmt !== undefined) promo.MinAmt = MinAmt;
         if (ExpDt !== undefined) promo.ExpDt = ExpDt;
         if (IsActv !== undefined) promo.IsActv = IsActv;
-
         await promo.save();
         res.status(200).json(promo);
     } catch (error) {

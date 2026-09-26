@@ -13,6 +13,7 @@ const EvntRoutes = require("./routes/events");
 const BkngRoutes = require("./routes/booking.js");
 const passRoutes = require("./routes/passRoutes.js");
 const promoRoutes = require("./routes/promoRoutes.js");
+const paymentRoutes = require('./routes/payment');
 
 dotenv.config();
 
@@ -28,6 +29,9 @@ app.use('/api/passes', passRoutes); // Routes for managing passes
 app.use('/api/promos', promoRoutes); // Routes for managing promo codes
 app.use('/api/rights', require('./routes/rights'));
 app.use('/customers', express.static(require('path').join(__dirname, 'public/customers')));
+app.use('/api/user-master', require('./routes/userMaster'));
+app.use('/api/payment', paymentRoutes);
+// app.use('/api/rights', require('./routes/rights'));
 
 mongoose.connect(process.env.MONGO_URI, {
 })

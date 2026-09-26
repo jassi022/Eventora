@@ -85,7 +85,17 @@ const sendTicketEmail = async ({ toEmail, name, eventTitle, qrBuffer, invoiceBuf
     ];
     await sendEmail({ to: toEmail, subject, message, attachments });
 };
+exports.sendPaymentApprovedEmail = async ({ toEmail, name, eventTitle }) => {
+    const subject = `Payment approved for ${eventTitle}`;
+    const text = `Hi ${name}, your payment for "${eventTitle}" has been verified. Your ticket is on its way.`;
+    try { await sendEmail({ to: toEmail, subject, text }); } catch (e) { console.error(e); }
+};
 
+exports.sendBookingRevertedEmail = async ({ toEmail, name, eventTitle, tktCod, message }) => {
+    const subject = `Update on your booking for ${eventTitle}`;
+    const text = `Hi ${name},\n\n${message}\n\nTicket: ${tktCod || 'N/A'}`;
+    try { await sendEmail({ to: toEmail, subject, text }); } catch (e) { console.error(e); }
+};
 exports.sendEmail = sendEmail;
 exports.sendOtpEmail = sendOtpEmail;
 exports.sendBookingEmail = sendBookingEmail;

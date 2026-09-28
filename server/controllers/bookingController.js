@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const booking = require('../models/Bookings');
 const OTP = require('../models/OTP');
 const Event = require('../models/Event');
-const Pass = require('../models/pass');
+const Pass = require('../models/Pass');
 const Promo = require('../models/Promo');
 const Payment = require('../models/Payment');
 

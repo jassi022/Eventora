@@ -1,8 +1,2 @@
-    PORT=5000
-    MONGO_URI=mongodb+srv://JayeshSharmaEvntra:Jayesh%407697@cluster0.id8qj6r.mongodb.net/eventoraDEV?appName=Cluster0
-
-    EMAIL_USER=jayeshsharma106@gmail.com 
-    EMAIL_PASS=jdik ufow lybx dllk
-    JWT_SECRET=jskdms@^&*9kdfjkdsdhwihsvihielvjn121dsdds
-
-    mongo pass :- Jayesh@7697
+Here i added the mongo uri and other credentials now i removed them from here,
+Thank you
